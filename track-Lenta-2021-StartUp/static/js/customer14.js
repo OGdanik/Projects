@@ -1,0 +1,11 @@
+$(document).ready(function(){
+	var dataTable = $("#dataTable").DataTable()
+	var customerChannel = pusher.subscribe('customer');
+	customerChannel.bind('add', function(data) {
+	var date = new Date();
+	dataTable.row.add([
+        `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
+	    data.name
+	  ]).draw( false );
+	});
+});
