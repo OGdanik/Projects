@@ -53,11 +53,20 @@ function getparam() {
 
     var h2 = document.getElementById("records");
     var r = document.cookie.match(param+"=(.*?)(?:;|$)");
-    var time = document.createTextNode(r[1]);
-    if (h2.firstChild)
-    h2.replaceChild(time,h2.firstChild);
-    else
-    h2.appendChild(time);
+    if (r) {
+        var time = document.createTextNode(r[1]);
+        if (h2.firstChild)
+        h2.replaceChild(time,h2.firstChild);
+        else
+        h2.appendChild(time);
+    }
+    else {
+        var time = document.createTextNode("00:00'00");
+        if (h2.firstChild)
+        h2.replaceChild(time,h2.firstChild);
+        else
+        h2.appendChild(time);
+    }
 }
 
 function getCookie(name) {
@@ -328,7 +337,7 @@ function timer() {
         </table>
         <h2>Время</h2>
     <h3><span id="min">00</span><span>:</span><span id="sec">00</span><span>'</span><span id="msec">00</span></h3>
-    <h3>Рекордное время</h3>
+    <h2>Рекордное время</h2>
     <h2 id="records"></h2>
     </div>
 
