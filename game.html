@@ -40,6 +40,55 @@ let t7;
 let param;
 let timer_msec;
 
+
+function timer() {
+    var ms = 0;
+    var s = 0;
+    var min_i = 0;
+    var msec = document.getElementById("msec");
+    var sec = document.getElementById("sec");
+    var min = document.getElementById("min");
+        timer_msec = setInterval(function () {
+        if (ms < 10) {
+            var time_ms = document.createTextNode("0"+ms);
+            msec.replaceChild(time_ms,msec.firstChild);
+        } 
+        if (ms > 9) {
+            var time_ms = document.createTextNode(ms);
+            msec.replaceChild(time_ms,msec.firstChild);
+        }
+        if (ms == 99) {
+            ms = 0;
+            s++;
+        }
+        ms++;
+
+        if (s < 10) {
+            var time_s = document.createTextNode("0"+s);
+            sec.replaceChild(time_s,sec.firstChild);
+        }
+        if (s > 9) {
+            var time_s = document.createTextNode(s);
+            sec.replaceChild(time_s,sec.firstChild);
+        }
+        if (s == 59) {
+            s = 0;
+            min_i++;
+        }
+
+        if (min_i < 10) {
+            var time_min = document.createTextNode("0"+min_i);
+            min.replaceChild(time_min,min.firstChild);
+        }
+        if (min_i > 9) {
+            var time_min = document.createTextNode(min_i);
+            min.replaceChild(time_min,min.firstChild);
+        }
+
+        }, 10);
+}
+
+
 function getparam() {
     max_ms = 0;
     max_s = 0;
@@ -211,6 +260,7 @@ function _levelup4(el) {
 	if (el.nextSibling.getAttribute("class") == "_0") {
 	l1 = el.nextSibling;
     l1.setAttribute("class","_1");
+    t4 = setTimeout(function(){ _levelup2(l1) }, time2);
     }
     }
 
@@ -218,6 +268,7 @@ function _levelup4(el) {
 	if (el.previousSibling.getAttribute("class") == "_0") {
 	l2 = el.previousSibling;
     l2.setAttribute("class","_1");
+    t5 = setTimeout(function(){ _levelup2(l2) }, time2);
     }
     }
 
@@ -227,6 +278,7 @@ function _levelup4(el) {
 	if (el.parentNode.previousSibling.cells.item(cell_i).getAttribute("class") == "_0") {
 	l3 = el.parentNode.previousSibling.cells.item(cell_i);
     l3.setAttribute("class","_1");
+    t6 = setTimeout(function(){ _levelup2(l3) }, time2);
     }
     }
 
@@ -234,13 +286,10 @@ function _levelup4(el) {
 	if (el.parentNode.nextSibling.cells.item(cell_i).getAttribute("class") == "_0") {
 	l4 = el.parentNode.nextSibling.cells.item(cell_i);
     l4.setAttribute("class","_1");
+    t7 = setTimeout(function(){ _levelup2(l4) }, time2);
     }
     }
 
-	t4 = setTimeout(function(){ _levelup2(l1) }, time2);
-    t5 = setTimeout(function(){ _levelup2(l2) }, time2);
-    t6 = setTimeout(function(){ _levelup2(l3) }, time2);
-    t7 = setTimeout(function(){ _levelup2(l4) }, time2);
     }
 	}
 
@@ -251,12 +300,18 @@ function health(ev) {
 }
 
 function health_lvldown(el) {
-    if (el.getAttribute("class") == "_1")
+    var time2 = document.getElementById("t2_time").value;
+    if (el.getAttribute("class") == "_1") {
     el.setAttribute("class","_0");
-    if (el.getAttribute("class") == "_2")
+    }
+    if (el.getAttribute("class") == "_2") {
     el.setAttribute("class","_1");
-    if (el.getAttribute("class") == "_3")
+    t2 = setTimeout(function(){ _levelup2(el) }, time2);
+    }
+    if (el.getAttribute("class") == "_3") {
     el.setAttribute("class","_2");
+    t3 = setTimeout(function(){ _levelup3(el) }, time2);
+    }
 }
 
 function lose() {
@@ -267,54 +322,6 @@ function lose() {
     var r_cells = table.getElementsByClassName("_0").length;
     if (r_cells <= cnt)
     stop();
-}
-
-function timer() {
-    var ms = 0;
-    var s = 0;
-    var min_i = 0;
-    var msec = document.getElementById("msec");
-    var sec = document.getElementById("sec");
-    var min = document.getElementById("min");
-        timer_msec = setInterval(function () {
-        if (ms < 10) {
-            var time_ms = document.createTextNode("0"+ms);
-            msec.replaceChild(time_ms,msec.firstChild);
-        }
-        if (ms > 9) {
-            var time_ms = document.createTextNode(ms);
-            msec.replaceChild(time_ms,msec.firstChild);
-        }
-        if (ms == 99) {
-            ms = 0;
-            s++;
-        }
-        ms++;
-
-
-        if (s < 10) {
-            var time_s = document.createTextNode("0"+s);
-            sec.replaceChild(time_s,sec.firstChild);
-        }
-        if (s > 9) {
-            var time_s = document.createTextNode(s);
-            sec.replaceChild(time_s,sec.firstChild);
-        }
-        if (s == 59) {
-            s = 0;
-            min_i++;
-        }
-
-        if (min_i < 10) {
-            var time_min = document.createTextNode("0"+min_i);
-            min.replaceChild(time_min,min.firstChild);
-        }
-        if (min_i > 9) {
-            var time_min = document.createTextNode(min_i);
-            min.replaceChild(time_min,min.firstChild);
-        }
-
-        }, 10)
 }
 
 </script>
