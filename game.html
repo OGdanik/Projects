@@ -39,6 +39,8 @@ let t6;
 let t7;
 let param;
 let timer_msec;
+let timer_sec;
+let timer_min;
 
 
 function timer() {
@@ -49,6 +51,7 @@ function timer() {
     var sec = document.getElementById("sec");
     var min = document.getElementById("min");
         timer_msec = setInterval(function () {
+            ms++;
         if (ms < 10) {
             var time_ms = document.createTextNode("0"+ms);
             msec.replaceChild(time_ms,msec.firstChild);
@@ -57,12 +60,13 @@ function timer() {
             var time_ms = document.createTextNode(ms);
             msec.replaceChild(time_ms,msec.firstChild);
         }
-        if (ms == 99) {
+        if (ms == 100) {
             ms = 0;
-            s++;
         }
-        ms++;
-
+        } , 10);
+        
+        timer_sec = setInterval(function () {
+            s++;
         if (s < 10) {
             var time_s = document.createTextNode("0"+s);
             sec.replaceChild(time_s,sec.firstChild);
@@ -72,10 +76,12 @@ function timer() {
             sec.replaceChild(time_s,sec.firstChild);
         }
         if (s == 59) {
-            s = 0;
-            min_i++;
+            s = -1;
         }
+        } , 1000);
 
+        timer_min = setInterval(function () {
+            min_i++;
         if (min_i < 10) {
             var time_min = document.createTextNode("0"+min_i);
             min.replaceChild(time_min,min.firstChild);
@@ -85,7 +91,7 @@ function timer() {
             min.replaceChild(time_min,min.firstChild);
         }
 
-        }, 10);
+        }, 60000);
 }
 
 
@@ -160,8 +166,10 @@ function stop() {
     clearTimeout(t5);
     clearTimeout(t6);
     clearTimeout(t7);
-    clearTimeout(timer_msec);
-    clearTimeout(_lose);
+    clearInterval(timer_msec);
+    clearInterval(timer_sec);
+    clearInterval(timer_min);
+    clearInterval(_lose);
     var stop_btn = document.getElementById("stop_btn");
     var gf = document.getElementById("game_field");
     var table = document.getElementById("tb_id");
